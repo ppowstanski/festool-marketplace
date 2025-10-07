@@ -21,15 +21,17 @@ export function LoginPage() {
       {/* Left Panel - Branding */}
       <div className="lg:w-1/2 bg-gradient-to-br from-[#39b54a]/10 via-[#0a0a0a] to-[#0a0a0a] p-8 lg:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#39b54a]/20 relative overflow-hidden">
         <div className="relative z-10">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-12 h-12 bg-[#39b54a] rounded-lg flex items-center justify-center">
-              <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-            </div>
-            <div>
-              <h1 className="text-xl font-bold leading-tight text-[#ededed]">FESTOOL Second Hand EU</h1>
-              <p className="text-sm text-[#a3a3a3]">✅ Verified Marketplace</p>
+          <div className="bg-[#39b54a]/10 border border-[#39b54a]/20 rounded-lg p-4 mb-8">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-[#39b54a] rounded-lg flex items-center justify-center">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <div>
+                <h1 className="text-xl font-bold leading-tight text-[#ededed]">FESTOOL Second Hand EU</h1>
+                <p className="text-sm text-[#a3a3a3]">✅ Verified Marketplace</p>
+              </div>
             </div>
           </div>
 
