@@ -5,6 +5,8 @@ import { listingSchema, type ListingSchema } from '../../schemas/listingSchema';
 import { COUNTRIES, LANGUAGES, CURRENCIES, CONDITIONS, SHIPPING_OPTIONS, COUNTRY_CURRENCY_MAP } from '../../constants/listing';
 import { PhotoUpload } from './PhotoUpload';
 import { PreviewModal } from './PreviewModal';
+import { TranslationSection } from './TranslationSection';
+import { LivePreview } from './LivePreview';
 import type { ListingFormData } from '../../types/listing';
 import { useDraftAutoSave } from '../../hooks/useDraftAutoSave';
 import { MaterialInput } from './MaterialInput';
@@ -79,7 +81,10 @@ export function ListingForm() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl mx-auto space-y-8">
+      <div className="flex flex-col md:flex-row gap-8">
+        {/* Left Column - Form */}
+        <div className="flex-1">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         {/* Draft Indicator */}
         {isDraftSaved && draftTimestamp && (
           <div className="bg-[#39b54a]/10 border border-[#39b54a]/20 rounded-lg p-4 flex items-center justify-between">
@@ -325,9 +330,16 @@ export function ListingForm() {
           </p>
         </section>
 
+        {/* Translation Section */}
+        <TranslationSection
+          description={watch('description') || ''}
+          includedItems={watch('includedItems') || ''}
+          selectedLanguages={watch('languages') || []}
+        />
+
         {/* Submit Button */}
         <div className="sticky bottom-4 bg-[#141414] rounded-lg shadow-lg shadow-[#39b54a]/10 p-4 border border-[#262626]">
-          <div className="flex items-center justify-between max-w-4xl mx-auto">
+          <div className="flex items-center justify-between">
             <div className="text-sm text-[#a3a3a3]">
               <span className="font-medium">
                 {Object.keys(errors).length > 0 ? (
@@ -350,7 +362,14 @@ export function ListingForm() {
             </button>
           </div>
         </div>
-      </form>
+          </form>
+        </div>
+
+        {/* Right Column - Live Preview */}
+        <div className="hidden md:block md:w-[600px] flex-shrink-0">
+          <LivePreview data={watch()} />
+        </div>
+      </div>
 
       {showPreview && (
         <PreviewModal
