@@ -34,10 +34,10 @@ export function LoginPage() {
           </div>
 
           <div className="space-y-6 max-w-md">
-            <h2 className="text-4xl lg:text-5xl font-bold leading-tight text-[#ededed]">
+            <h2 className="text-5xl lg:text-6xl font-bold leading-tight text-[#ededed]">
               Your trusted marketplace for premium tools
             </h2>
-            <p className="text-lg text-[#a3a3a3] leading-relaxed">
+            <p className="text-xl lg:text-2xl text-[#a3a3a3] leading-relaxed">
               Connect with the European Festool community. Buy and sell verified second-hand tools with confidence.
             </p>
           </div>
