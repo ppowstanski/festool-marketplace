@@ -5,9 +5,10 @@ import type { ListingFormData } from '../../types/listing';
 interface PreviewModalProps {
   data: ListingFormData;
   onClose: () => void;
+  onPostSuccess?: () => void;
 }
 
-export function PreviewModal({ data, onClose }: PreviewModalProps) {
+export function PreviewModal({ data, onClose, onPostSuccess }: PreviewModalProps) {
   const [copied, setCopied] = useState(false);
   const post = generatePost(data);
 
@@ -15,6 +16,10 @@ export function PreviewModal({ data, onClose }: PreviewModalProps) {
     try {
       await navigator.clipboard.writeText(`${post.title}\n\n${post.body}`);
       setCopied(true);
+      // Clear draft after successful copy (simulating successful post)
+      if (onPostSuccess) {
+        onPostSuccess();
+      }
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error('Failed to copy:', err);

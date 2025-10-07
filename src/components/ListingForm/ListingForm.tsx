@@ -6,6 +6,7 @@ import { COUNTRIES, LANGUAGES, CURRENCIES, CONDITIONS, SHIPPING_OPTIONS, COUNTRY
 import { PhotoUpload } from './PhotoUpload';
 import { PreviewModal } from './PreviewModal';
 import type { ListingFormData } from '../../types/listing';
+import { useDraftAutoSave } from '../../hooks/useDraftAutoSave';
 
 export function ListingForm() {
   const [showPreview, setShowPreview] = useState(false);
@@ -16,6 +17,7 @@ export function ListingForm() {
     handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors, isValid, isDirty },
   } = useForm<ListingSchema>({
     resolver: zodResolver(listingSchema),
@@ -26,6 +28,12 @@ export function ListingForm() {
       negotiable: false,
       photos: [],
     },
+  });
+
+  // Auto-save draft
+  const { isDraftSaved, draftTimestamp, clearDraft, saveError } = useDraftAutoSave({
+    watch,
+    reset,
   });
 
   const selectedCountry = watch('country');
@@ -49,9 +57,62 @@ export function ListingForm() {
 
   const progress = Object.keys(errors).length === 0 && isValid ? 100 : 0;
 
+  const formatDraftTime = (timestamp: number | null): string => {
+    if (!timestamp) return '';
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+
+    if (diffMins < 1) return 'just now';
+    if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
+    const diffHours = Math.floor(diffMins / 60);
+    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+    const diffDays = Math.floor(diffHours / 24);
+    return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+  };
+
+  const handleDiscardDraft = () => {
+    if (window.confirm('Are you sure you want to discard your draft? This cannot be undone.')) {
+      clearDraft();
+    }
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl mx-auto space-y-8">
+        {/* Draft Indicator */}
+        {isDraftSaved && draftTimestamp && (
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <p className="text-sm font-medium text-blue-900">Draft saved</p>
+                <p className="text-xs text-blue-700">Last saved {formatDraftTime(draftTimestamp)}</p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={handleDiscardDraft}
+              className="px-4 py-2 text-sm text-blue-700 hover:text-blue-900 hover:bg-blue-100 rounded-lg transition-colors"
+            >
+              Discard draft
+            </button>
+          </div>
+        )}
+
+        {/* Save Error */}
+        {saveError && (
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 flex items-center gap-3">
+            <svg className="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <p className="text-sm text-yellow-900">{saveError}</p>
+          </div>
+        )}
+
         {/* Location Section */}
         <section className="bg-white rounded-lg shadow-sm p-6 space-y-6">
           <h2 className="text-xl font-bold text-gray-900">📍 Location</h2>
@@ -379,6 +440,7 @@ export function ListingForm() {
         <PreviewModal
           data={watch() as ListingFormData}
           onClose={() => setShowPreview(false)}
+          onPostSuccess={clearDraft}
         />
       )}
     </>
