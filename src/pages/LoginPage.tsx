@@ -19,8 +19,8 @@ export function LoginPage() {
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-[#0a0a0a]">
       {/* Left Panel - Branding */}
-      <div className="lg:w-1/2 bg-gradient-to-br from-[#39b54a]/10 via-[#0a0a0a] to-[#0a0a0a] p-8 lg:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#262626]">
-        <div>
+      <div className="lg:w-1/2 bg-gradient-to-br from-[#39b54a]/10 via-[#0a0a0a] to-[#0a0a0a] p-8 lg:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#262626] relative overflow-hidden">
+        <div className="relative z-10">
           <div className="flex items-center gap-3 mb-8">
             <div className="w-12 h-12 bg-[#39b54a] rounded-lg flex items-center justify-center">
               <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -43,7 +43,16 @@ export function LoginPage() {
           </div>
         </div>
 
-        <div className="mt-12 grid grid-cols-3 gap-6 max-w-md">
+        {/* Festool Product Image */}
+        <div className="absolute bottom-0 right-0 w-3/4 opacity-30 pointer-events-none">
+          <img
+            src="https://www.festool.net/campaign/18V/img/highlight/portfolio/portfolio_cutout.webp"
+            alt="Festool Tools"
+            className="w-full h-auto object-contain"
+          />
+        </div>
+
+        <div className="mt-12 grid grid-cols-3 gap-6 max-w-md relative z-10">
           <div className="space-y-1">
             <div className="text-3xl font-bold text-[#39b54a]">2.5K+</div>
             <div className="text-sm text-[#a3a3a3]">Active Members</div>
