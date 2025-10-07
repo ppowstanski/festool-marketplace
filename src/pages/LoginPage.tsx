@@ -19,7 +19,7 @@ export function LoginPage() {
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-[#0a0a0a]">
       {/* Left Panel - Branding */}
-      <div className="lg:w-1/2 bg-[#39b54a]/10 p-16 lg:p-20 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#39b54a]/20 relative overflow-hidden">
+      <div className="lg:w-1/2 bg-[#39b54a]/10 p-6 lg:p-20 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#39b54a]/20 relative overflow-hidden">
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-8">
             <div className="w-12 h-12 bg-[#39b54a] rounded-lg flex items-center justify-center relative overflow-hidden">
@@ -69,7 +69,7 @@ export function LoginPage() {
       </div>
 
       {/* Right Panel - Login Form */}
-      <div className="lg:w-1/2 flex items-center justify-center p-8 lg:p-12">
+      <div className="lg:w-1/2 flex items-center justify-center p-6 lg:p-12">
         <div className="w-full max-w-md space-y-8">
           <div className="space-y-2 text-center lg:text-left">
             <h2 className="text-3xl font-bold tracking-tight text-[#ededed]">Welcome back</h2>
