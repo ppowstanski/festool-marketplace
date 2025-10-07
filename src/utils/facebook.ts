@@ -1,5 +1,6 @@
 import type { FacebookUser } from '../types/auth';
 
+// Facebook SDK Configuration
 const FACEBOOK_APP_ID = import.meta.env.VITE_FACEBOOK_APP_ID;
 const FACEBOOK_API_VERSION = 'v21.0';
 
