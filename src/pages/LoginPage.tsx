@@ -33,7 +33,7 @@ export function LoginPage() {
             </div>
           </div>
 
-          <div className="space-y-6 max-w-md">
+          <div className="space-y-6 max-w-2xl">
             <h2 className="text-5xl lg:text-6xl font-bold leading-tight text-[#ededed]">
               Your trusted marketplace for premium tools
             </h2>
