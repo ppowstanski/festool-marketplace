@@ -7,6 +7,9 @@ import { PhotoUpload } from './PhotoUpload';
 import { PreviewModal } from './PreviewModal';
 import type { ListingFormData } from '../../types/listing';
 import { useDraftAutoSave } from '../../hooks/useDraftAutoSave';
+import { MaterialInput } from './MaterialInput';
+import { MaterialSelect } from './MaterialSelect';
+import { MaterialTextarea } from './MaterialTextarea';
 
 export function ListingForm() {
   const [showPreview, setShowPreview] = useState(false);
@@ -115,42 +118,28 @@ export function ListingForm() {
 
           <div className="grid md:grid-cols-2 gap-6">
             {/* Country */}
-            <div>
-              <label className="block text-sm font-medium text-[#ededed] mb-2">
-                Country <span className="text-red-400">*</span>
-              </label>
-              <select
-                {...register('country')}
-                onChange={handleCountryChange}
-                className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] text-[#ededed] rounded-lg focus:ring-2 focus:ring-[#39b54a] focus:border-transparent"
-              >
-                <option value="">Select your country</option>
-                {COUNTRIES.map(country => (
-                  <option key={country.code} value={country.code}>
-                    {country.flag} {country.name}
-                  </option>
-                ))}
-              </select>
-              {errors.country && (
-                <p className="mt-1 text-sm text-red-400">{errors.country.message}</p>
-              )}
-            </div>
+            <MaterialSelect
+              label="Country"
+              required
+              {...register('country')}
+              onChange={handleCountryChange}
+              error={errors.country?.message}
+            >
+              <option value="">Select your country</option>
+              {COUNTRIES.map(country => (
+                <option key={country.code} value={country.code}>
+                  {country.flag} {country.name}
+                </option>
+              ))}
+            </MaterialSelect>
 
             {/* City */}
-            <div>
-              <label className="block text-sm font-medium text-[#ededed] mb-2">
-                City <span className="text-red-400">*</span>
-              </label>
-              <input
-                type="text"
-                {...register('city')}
-                placeholder="e.g. Berlin, Munich, Hamburg"
-                className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] text-[#ededed] placeholder-[#a3a3a3] rounded-lg focus:ring-2 focus:ring-[#39b54a] focus:border-transparent"
-              />
-              {errors.city && (
-                <p className="mt-1 text-sm text-red-400">{errors.city.message}</p>
-              )}
-            </div>
+            <MaterialInput
+              label="City"
+              required
+              {...register('city')}
+              error={errors.city?.message}
+            />
           </div>
 
           {/* Languages */}
@@ -182,59 +171,38 @@ export function ListingForm() {
           <h2 className="text-xl font-bold text-[#ededed]">🏷️ Product Details</h2>
 
           {/* Product Name */}
-          <div>
-            <label className="block text-sm font-medium text-[#ededed] mb-2">
-              Product Name <span className="text-red-400">*</span>
-            </label>
-            <input
-              type="text"
-              {...register('productName')}
-              placeholder="e.g. Festool TS 55 EQ Plus Track Saw"
-              className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] text-[#ededed] placeholder-[#a3a3a3] rounded-lg focus:ring-2 focus:ring-[#39b54a] focus:border-transparent"
-            />
-            {errors.productName && (
-              <p className="mt-1 text-sm text-red-400">{errors.productName.message}</p>
-            )}
-          </div>
+          <MaterialInput
+            label="Product Name"
+            required
+            {...register('productName')}
+            error={errors.productName?.message}
+          />
 
           {/* Price & Currency */}
           <div className="grid md:grid-cols-3 gap-4">
-            <div className="md:col-span-1">
-              <label className="block text-sm font-medium text-[#ededed] mb-2">
-                Price <span className="text-red-400">*</span>
-              </label>
-              <input
-                type="number"
-                {...register('price', { valueAsNumber: true })}
-                placeholder="350"
-                className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] text-[#ededed] placeholder-[#a3a3a3] rounded-lg focus:ring-2 focus:ring-[#39b54a] focus:border-transparent"
-              />
-              {errors.price && (
-                <p className="mt-1 text-sm text-red-400">{errors.price.message}</p>
-              )}
-            </div>
+            <MaterialInput
+              type="number"
+              label="Price"
+              required
+              {...register('price', { valueAsNumber: true })}
+              error={errors.price?.message}
+            />
 
-            <div className="md:col-span-1">
-              <label className="block text-sm font-medium text-[#ededed] mb-2">
-                Currency <span className="text-red-400">*</span>
-              </label>
-              <select
-                {...register('currency')}
-                className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] text-[#ededed] rounded-lg focus:ring-2 focus:ring-[#39b54a] focus:border-transparent"
-              >
-                {CURRENCIES.map(curr => (
-                  <option key={curr.code} value={curr.code}>
-                    {curr.code} ({curr.symbol})
-                  </option>
-                ))}
-              </select>
-              {errors.currency && (
-                <p className="mt-1 text-sm text-red-400">{errors.currency.message}</p>
-              )}
-            </div>
+            <MaterialSelect
+              label="Currency"
+              required
+              {...register('currency')}
+              error={errors.currency?.message}
+            >
+              {CURRENCIES.map(curr => (
+                <option key={curr.code} value={curr.code}>
+                  {curr.code} ({curr.symbol})
+                </option>
+              ))}
+            </MaterialSelect>
 
-            <div className="flex items-end">
-              <label className="flex items-center gap-2 cursor-pointer pb-2">
+            <div className="flex items-center">
+              <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
                   {...register('negotiable')}
@@ -246,41 +214,27 @@ export function ListingForm() {
           </div>
 
           {/* Year */}
-          <div>
-            <label className="block text-sm font-medium text-[#ededed] mb-2">
-              Year of Production (optional)
-            </label>
-            <input
-              type="number"
-              {...register('year', { valueAsNumber: true })}
-              placeholder="2019"
-              className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] text-[#ededed] placeholder-[#a3a3a3] rounded-lg focus:ring-2 focus:ring-[#39b54a] focus:border-transparent"
-            />
-            {errors.year && (
-              <p className="mt-1 text-sm text-red-400">{errors.year.message}</p>
-            )}
-          </div>
+          <MaterialInput
+            type="number"
+            label="Year of Production (optional)"
+            {...register('year', { valueAsNumber: true })}
+            error={errors.year?.message}
+          />
 
           {/* Condition */}
-          <div>
-            <label className="block text-sm font-medium text-[#ededed] mb-2">
-              Condition <span className="text-red-400">*</span>
-            </label>
-            <select
-              {...register('condition')}
-              className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] text-[#ededed] rounded-lg focus:ring-2 focus:ring-[#39b54a] focus:border-transparent"
-            >
-              <option value="">Select condition</option>
-              {CONDITIONS.map(condition => (
-                <option key={condition.value} value={condition.value}>
-                  {'⭐'.repeat(condition.stars)} {condition.label}
-                </option>
-              ))}
-            </select>
-            {errors.condition && (
-              <p className="mt-1 text-sm text-red-400">{errors.condition.message}</p>
-            )}
-          </div>
+          <MaterialSelect
+            label="Condition"
+            required
+            {...register('condition')}
+            error={errors.condition?.message}
+          >
+            <option value="">Select condition</option>
+            {CONDITIONS.map(condition => (
+              <option key={condition.value} value={condition.value}>
+                {'⭐'.repeat(condition.stars)} {condition.label}
+              </option>
+            ))}
+          </MaterialSelect>
         </section>
 
         {/* Shipping Section */}
@@ -310,20 +264,11 @@ export function ListingForm() {
           </div>
 
           {shippingOptions?.includes('dhl-europe') && (
-            <div>
-              <label className="block text-sm font-medium text-[#ededed] mb-2">
-                Estimated DHL Shipping Cost (optional)
-              </label>
-              <input
-                type="text"
-                {...register('dhlShippingCost')}
-                placeholder="~25€ or 20-30€"
-                className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] text-[#ededed] placeholder-[#a3a3a3] rounded-lg focus:ring-2 focus:ring-[#39b54a] focus:border-transparent"
-              />
-              {errors.dhlShippingCost && (
-                <p className="mt-1 text-sm text-red-400">{errors.dhlShippingCost.message}</p>
-              )}
-            </div>
+            <MaterialInput
+              label="Estimated DHL Shipping Cost (optional)"
+              {...register('dhlShippingCost')}
+              error={errors.dhlShippingCost?.message}
+            />
           )}
         </section>
 
@@ -331,38 +276,22 @@ export function ListingForm() {
         <section className="bg-[#141414] border border-[#262626] rounded-lg p-6 space-y-6">
           <h2 className="text-xl font-bold text-[#ededed]">📄 Description</h2>
 
-          <div>
-            <label className="block text-sm font-medium text-[#ededed] mb-2">
-              Detailed Description <span className="text-red-400">*</span>
-            </label>
-            <textarea
-              {...register('description')}
-              rows={6}
-              placeholder="Describe the condition, usage history, any modifications, reason for selling, etc."
-              className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] text-[#ededed] placeholder-[#a3a3a3] rounded-lg focus:ring-2 focus:ring-[#39b54a] focus:border-transparent"
-            />
-            <p className="mt-1 text-sm text-[#a3a3a3]">
-              {watch('description')?.length || 0} / 2000 characters (minimum 50)
-            </p>
-            {errors.description && (
-              <p className="mt-1 text-sm text-red-400">{errors.description.message}</p>
-            )}
-          </div>
+          <MaterialTextarea
+            label="Detailed Description"
+            required
+            {...register('description')}
+            rows={6}
+            error={errors.description?.message}
+            helperText={`${watch('description')?.length || 0} / 2000 characters (minimum 50)`}
+          />
 
-          <div>
-            <label className="block text-sm font-medium text-[#ededed] mb-2">
-              What's Included <span className="text-red-400">*</span>
-            </label>
-            <textarea
-              {...register('includedItems')}
-              rows={4}
-              placeholder="List all items included (tool, systainer, accessories, manuals, etc.)"
-              className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] text-[#ededed] placeholder-[#a3a3a3] rounded-lg focus:ring-2 focus:ring-[#39b54a] focus:border-transparent"
-            />
-            {errors.includedItems && (
-              <p className="mt-1 text-sm text-red-400">{errors.includedItems.message}</p>
-            )}
-          </div>
+          <MaterialTextarea
+            label="What's Included"
+            required
+            {...register('includedItems')}
+            rows={4}
+            error={errors.includedItems?.message}
+          />
         </section>
 
         {/* Photos Section */}
@@ -386,23 +315,14 @@ export function ListingForm() {
         <section className="bg-[#141414] border border-[#262626] rounded-lg p-6 space-y-6">
           <h2 className="text-xl font-bold text-[#ededed]">📞 Contact</h2>
 
-          <div>
-            <label className="block text-sm font-medium text-[#ededed] mb-2">
-              Contact Information (optional)
-            </label>
-            <input
-              type="text"
-              {...register('contact')}
-              placeholder="your.email@example.com or +49 123 456 789"
-              className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] text-[#ededed] placeholder-[#a3a3a3] rounded-lg focus:ring-2 focus:ring-[#39b54a] focus:border-transparent"
-            />
-            <p className="mt-1 text-sm text-[#a3a3a3]">
-              Leave empty to be contacted via Facebook Messenger
-            </p>
-            {errors.contact && (
-              <p className="mt-1 text-sm text-red-400">{errors.contact.message}</p>
-            )}
-          </div>
+          <MaterialInput
+            label="Contact Information (optional)"
+            {...register('contact')}
+            error={errors.contact?.message}
+          />
+          <p className="text-xs text-[#a3a3a3] -mt-4">
+            Leave empty to be contacted via Facebook Messenger
+          </p>
         </section>
 
         {/* Submit Button */}
