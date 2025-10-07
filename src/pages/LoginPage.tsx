@@ -46,7 +46,7 @@ export function LoginPage() {
         {/* Festool Product Image */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] pointer-events-none">
           <img
-            src="https://www.festool.net/campaign/18V/img/highlight/portfolio/portfolio_cutout.webp"
+            src="/images/festool-portfolio.webp"
             alt="Festool Tools"
             className="w-full h-auto object-contain"
           />
