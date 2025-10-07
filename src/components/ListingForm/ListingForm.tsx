@@ -18,7 +18,7 @@ export function ListingForm() {
     watch,
     setValue,
     reset,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid },
   } = useForm<ListingSchema>({
     resolver: zodResolver(listingSchema),
     mode: 'onChange',
@@ -36,9 +36,7 @@ export function ListingForm() {
     reset,
   });
 
-  const selectedCountry = watch('country');
   const shippingOptions = watch('shippingOptions');
-  const photos = watch('photos');
 
   // Auto-select currency when country changes
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -51,11 +49,9 @@ export function ListingForm() {
     }
   };
 
-  const onSubmit = (data: ListingSchema) => {
+  const onSubmit = () => {
     setShowPreview(true);
   };
-
-  const progress = Object.keys(errors).length === 0 && isValid ? 100 : 0;
 
   const formatDraftTime = (timestamp: number | null): string => {
     if (!timestamp) return '';

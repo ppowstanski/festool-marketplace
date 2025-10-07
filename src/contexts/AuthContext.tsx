@@ -76,7 +76,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       window.FB.login(
         (response: FacebookLoginResponse) => {
           if (response.status === 'connected' && response.authResponse) {
-            const { accessToken, userID } = response.authResponse;
+            const { accessToken } = response.authResponse;
 
             // Fetch user profile
             getUserProfile(accessToken)

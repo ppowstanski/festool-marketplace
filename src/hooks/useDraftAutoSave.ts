@@ -24,7 +24,7 @@ export function useDraftAutoSave({
   const [isDraftSaved, setIsDraftSaved] = useState(false);
   const [draftTimestamp, setDraftTimestamp] = useState<number | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
-  const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isRestoringRef = useRef(false);
 
   // Restore draft on mount

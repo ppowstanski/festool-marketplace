@@ -21,11 +21,11 @@ export const listingSchema = z.object({
     .min(5, 'Product name must be at least 5 characters')
     .max(100, 'Product name must be less than 100 characters'),
   price: z
-    .number({ invalid_type_error: 'Price must be a number' })
+    .number({ message: 'Price must be a number' })
     .positive('Price must be greater than 0')
     .max(999999, 'Price must be less than 1,000,000'),
   currency: z.string().min(1, 'Please select a currency'),
-  negotiable: z.boolean().default(false),
+  negotiable: z.boolean(),
 
   // Shipping
   shippingOptions: z
