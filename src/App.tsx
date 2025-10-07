@@ -3,6 +3,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { useFacebookAuth } from './hooks/useFacebookAuth';
 import { LoginPage } from './pages/LoginPage';
 import { AppPage } from './pages/AppPage';
+import { PrivacyPage } from './pages/PrivacyPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
 function AppRoutes() {
@@ -52,6 +53,7 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route path="/privacy" element={<PrivacyPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
