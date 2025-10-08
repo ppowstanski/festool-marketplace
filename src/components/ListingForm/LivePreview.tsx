@@ -168,25 +168,6 @@ export function LivePreview({ data, translations }: LivePreviewProps) {
         </div>
       </div>
 
-      {/* Photos */}
-      {data.photos && data.photos.length > 0 && (
-        <div className="grid grid-cols-2 gap-2">
-          {data.photos.slice(0, 4).map((photo, index) => (
-            <img
-              key={index}
-              src={URL.createObjectURL(photo)}
-              alt={`Preview ${index + 1}`}
-              className="w-full h-24 object-cover rounded-lg border border-[#262626]"
-            />
-          ))}
-          {data.photos.length > 4 && (
-            <div className="w-full h-24 bg-[#0a0a0a] border border-[#262626] rounded-lg flex items-center justify-center text-[#a3a3a3]">
-              +{data.photos.length - 4} more
-            </div>
-          )}
-        </div>
-      )}
-
       {/* Price */}
       <div>
         <div className="flex items-baseline justify-between mb-1">

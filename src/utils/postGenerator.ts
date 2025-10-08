@@ -8,7 +8,6 @@ export function generatePost(data: ListingFormData): GeneratedPost {
   return {
     title,
     body,
-    photoCount: data.photos.length,
   };
 }
 

@@ -1,9 +1,8 @@
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { listingSchema, type ListingSchema } from '../../schemas/listingSchema';
 import { COUNTRIES, LANGUAGES, CONDITIONS, SHIPPING_OPTIONS, COUNTRY_CURRENCY_MAP } from '../../constants/listing';
-import { PhotoUpload } from './PhotoUpload';
 import { PreviewModal } from './PreviewModal';
 import { TranslationSection } from './TranslationSection';
 import { LivePreview } from './LivePreview';
@@ -25,7 +24,6 @@ export function ListingForm() {
 
   const {
     register,
-    control,
     handleSubmit,
     watch,
     setValue,
@@ -38,7 +36,6 @@ export function ListingForm() {
       languages: [],
       shippingOptions: [],
       negotiable: false,
-      photos: [],
       currency: 'EUR',
     },
   });
@@ -304,23 +301,6 @@ export function ListingForm() {
             {...register('includedItems')}
             rows={10}
             error={errors.includedItems?.message}
-          />
-        </section>
-
-        {/* Photos Section */}
-        <section className="bg-[#141414] border border-[#262626] rounded-lg p-6 space-y-6">
-          <h2 className="text-xl font-bold text-[#ededed]">{t('form.photos')}</h2>
-
-          <Controller
-            name="photos"
-            control={control}
-            render={({ field }) => (
-              <PhotoUpload
-                photos={field.value}
-                onChange={field.onChange}
-                error={errors.photos?.message}
-              />
-            )}
           />
         </section>
 

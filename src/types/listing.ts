@@ -22,15 +22,13 @@ export interface ListingFormData {
   description: string;
   includedItems: string;
 
-  // Media & Contact
-  photos: File[];
+  // Contact
   contact?: string;
 }
 
 export interface GeneratedPost {
   title: string;
   body: string;
-  photoCount: number;
 }
 
 export interface Country {

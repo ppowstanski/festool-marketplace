@@ -3,42 +3,8 @@ import type { ListingFormData } from '../types/listing';
 const DRAFT_STORAGE_KEY = 'festool-listing-draft';
 
 export interface DraftData {
-  formData: Omit<ListingFormData, 'photos'>;
-  photos: string[]; // base64 encoded
+  formData: ListingFormData;
   timestamp: number;
-}
-
-/**
- * Convert a File object to base64 string
- */
-export async function fileToBase64(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result as string;
-      resolve(result);
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-
-/**
- * Convert base64 string back to File object
- */
-export function base64ToFile(base64: string, filename: string): File {
-  // Extract the base64 data and mime type
-  const arr = base64.split(',');
-  const mime = arr[0].match(/:(.*?);/)?.[1] || 'image/jpeg';
-  const bstr = atob(arr[1]);
-  let n = bstr.length;
-  const u8arr = new Uint8Array(n);
-
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n);
-  }
-
-  return new File([u8arr], filename, { type: mime });
 }
 
 /**
@@ -54,8 +20,7 @@ export function validateDraftData(data: unknown): data is DraftData {
   return (
     typeof draft.timestamp === 'number' &&
     typeof draft.formData === 'object' &&
-    draft.formData !== null &&
-    Array.isArray(draft.photos)
+    draft.formData !== null
   );
 }
 
@@ -64,20 +29,9 @@ export function validateDraftData(data: unknown): data is DraftData {
  */
 export async function saveDraft(formData: ListingFormData): Promise<void> {
   try {
-    // Separate photos from form data
-    const { photos, ...restFormData } = formData;
-
-    // Convert photos to base64
-    const photoPromises = photos.map((photo, index) =>
-      fileToBase64(photo).then(base64 => ({ base64, index }))
-    );
-    const photoResults = await Promise.all(photoPromises);
-    const photosBase64 = photoResults.map(r => r.base64);
-
     // Create draft object
     const draftData: DraftData = {
-      formData: restFormData,
-      photos: photosBase64,
+      formData,
       timestamp: Date.now(),
     };
 
@@ -87,7 +41,7 @@ export async function saveDraft(formData: ListingFormData): Promise<void> {
     // Handle quota exceeded or other errors
     if (error instanceof Error && error.name === 'QuotaExceededError') {
       console.error('localStorage quota exceeded. Cannot save draft.');
-      throw new Error('Storage quota exceeded. Please reduce the number or size of photos.');
+      throw new Error('Storage quota exceeded.');
     }
     throw error;
   }
@@ -112,18 +66,7 @@ export function loadDraft(): ListingFormData | null {
       return null;
     }
 
-    // Convert base64 photos back to File objects
-    const photos = draft.photos.map((base64, index) =>
-      base64ToFile(base64, `photo-${index + 1}.jpg`)
-    );
-
-    // Reconstruct full form data
-    const formData: ListingFormData = {
-      ...draft.formData,
-      photos,
-    };
-
-    return formData;
+    return draft.formData;
   } catch (error) {
     console.error('Error loading draft:', error);
     clearDraft();

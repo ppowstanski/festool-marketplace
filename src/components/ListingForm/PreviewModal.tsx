@@ -44,25 +44,6 @@ export function PreviewModal({ data, onClose, onPostSuccess }: PreviewModalProps
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          {/* Photos */}
-          {data.photos.length > 0 && (
-            <div>
-              <h3 className="text-sm font-medium text-gray-700 mb-3">
-                Photos ({data.photos.length})
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                {data.photos.map((photo, index) => (
-                  <img
-                    key={index}
-                    src={URL.createObjectURL(photo)}
-                    alt={`Preview ${index + 1}`}
-                    className="w-full h-32 object-cover rounded-lg"
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Title */}
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">Post Title</h3>
@@ -118,12 +99,9 @@ export function PreviewModal({ data, onClose, onPostSuccess }: PreviewModalProps
               <li>Click "Copy to Clipboard" to copy your post text</li>
               <li>Go to your Festool Facebook group</li>
               <li>Create a new post and paste the text</li>
-              <li><strong>Manually upload your {data.photos.length} photos</strong> (photos cannot be copied to clipboard)</li>
+              <li>Add your photos directly in Facebook</li>
               <li>Publish your listing!</li>
             </ol>
-          </div>
-          <div className="mt-3 bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-xs text-yellow-800">
-            <strong>⚠️ Note:</strong> Photos cannot be automatically copied. You'll need to upload them manually when creating your Facebook post.
           </div>
         </div>
       </div>

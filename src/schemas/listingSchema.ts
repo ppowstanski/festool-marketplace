@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { YEAR_CONSTRAINTS, PHOTO_CONSTRAINTS } from '../constants/listing';
+import { YEAR_CONSTRAINTS } from '../constants/listing';
 
 export const listingSchema = z.object({
   // Location
@@ -51,11 +51,7 @@ export const listingSchema = z.object({
     .min(10, 'Please list what\'s included (minimum 10 characters)')
     .max(1000, 'Included items must be less than 1000 characters'),
 
-  // Media & Contact
-  photos: z
-    .array(z.any())
-    .min(PHOTO_CONSTRAINTS.MIN_PHOTOS, `Minimum ${PHOTO_CONSTRAINTS.MIN_PHOTOS} photos required`)
-    .max(PHOTO_CONSTRAINTS.MAX_PHOTOS, `Maximum ${PHOTO_CONSTRAINTS.MAX_PHOTOS} photos allowed`),
+  // Contact
   contact: z
     .string()
     .max(100, 'Contact information must be less than 100 characters')
