@@ -51,9 +51,9 @@ export function LivePreview({ data, translations, onCopySuccess }: LivePreviewPr
 
   return (
     <div className="sticky top-4 bg-[#0a0a0a] border border-[#262626] rounded-lg max-h-[calc(100vh-2rem)] overflow-hidden flex flex-col">
-      <div className="p-6 border-b border-[#262626]">
+      <div className="px-6 py-4 border-b border-[#262626] flex items-center justify-between">
         <h2 className="text-2xl font-bold text-[#ededed]">Post Preview</h2>
-        <p className="text-sm text-[#a3a3a3] mt-1">This is how your post will look</p>
+        <p className="text-sm text-[#a3a3a3]">This is how your post will look</p>
       </div>
 
       {!post ? (
