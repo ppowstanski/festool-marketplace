@@ -54,6 +54,8 @@ export interface Currency {
 export interface ConditionOption {
   value: string;
   label: string;
+  labelDe: string;
+  labelPl: string;
   stars: number;
 }
 

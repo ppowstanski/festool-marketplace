@@ -87,6 +87,18 @@ export function UserSettingsModal({ isOpen, onClose }: UserSettingsModalProps) {
             required
           />
 
+          {/* Interface Language */}
+          <MaterialSelect
+            label="Interface Language"
+            value={formData.language}
+            onChange={(e) => setFormData(prev => ({ ...prev, language: e.target.value as any }))}
+            required
+          >
+            <option value="en">🇬🇧 English</option>
+            <option value="de">🇩🇪 Deutsch (German)</option>
+            <option value="pl">🇵🇱 Polski (Polish)</option>
+          </MaterialSelect>
+
           {/* Main Language */}
           <MaterialSelect
             label="Main Language"

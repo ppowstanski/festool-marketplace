@@ -12,9 +12,16 @@ import { useDraftAutoSave } from '../../hooks/useDraftAutoSave';
 import { MaterialInput } from './MaterialInput';
 import { MaterialSelect } from './MaterialSelect';
 import { MaterialTextarea } from './MaterialTextarea';
+import { useTranslation } from '../../hooks/useTranslation';
+import type { TranslationResult } from '../../services/translation';
 
 export function ListingForm() {
+  const { t } = useTranslation();
   const [showPreview, setShowPreview] = useState(false);
+  const [translations, setTranslations] = useState<{
+    description: TranslationResult[];
+    includedItems: TranslationResult[];
+  } | null>(null);
 
   const {
     register,
@@ -32,6 +39,7 @@ export function ListingForm() {
       shippingOptions: [],
       negotiable: false,
       photos: [],
+      currency: 'EUR',
     },
   });
 
@@ -93,8 +101,8 @@ export function ListingForm() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <div>
-                <p className="text-sm font-medium text-[#ededed]">Draft saved</p>
-                <p className="text-xs text-[#a3a3a3]">Last saved {formatDraftTime(draftTimestamp)}</p>
+                <p className="text-sm font-medium text-[#ededed]">{t('form.draftSaved')}</p>
+                <p className="text-xs text-[#a3a3a3]">{t('form.lastSaved', { time: formatDraftTime(draftTimestamp) })}</p>
               </div>
             </div>
             <button
@@ -102,7 +110,7 @@ export function ListingForm() {
               onClick={handleDiscardDraft}
               className="px-4 py-2 text-sm text-[#a3a3a3] hover:text-[#ededed] hover:bg-[#262626] rounded-lg transition-colors"
             >
-              Discard draft
+              {t('form.discardDraft')}
             </button>
           </div>
         )}
@@ -119,18 +127,18 @@ export function ListingForm() {
 
         {/* Location Section */}
         <section className="bg-[#141414] border border-[#262626] rounded-lg p-6 space-y-6">
-          <h2 className="text-xl font-bold text-[#ededed]">📍 Location</h2>
+          <h2 className="text-xl font-bold text-[#ededed]">{t('form.location')}</h2>
 
           <div className="grid md:grid-cols-2 gap-6">
             {/* Country */}
             <MaterialSelect
-              label="Country"
+              label={t('form.country')}
               required
               {...register('country')}
               onChange={handleCountryChange}
               error={errors.country?.message}
             >
-              <option value="">Select your country</option>
+              <option value="">{t('form.country.placeholder')}</option>
               {COUNTRIES.map(country => (
                 <option key={country.code} value={country.code}>
                   {country.flag} {country.name}
@@ -140,7 +148,7 @@ export function ListingForm() {
 
             {/* City */}
             <MaterialInput
-              label="City"
+              label={t('form.city')}
               required
               {...register('city')}
               error={errors.city?.message}
@@ -150,7 +158,7 @@ export function ListingForm() {
           {/* Languages */}
           <div>
             <label className="block text-sm font-medium text-[#ededed] mb-2">
-              Languages I can communicate in <span className="text-red-400">*</span>
+              {t('form.languages')} <span className="text-red-400">*</span>
             </label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {LANGUAGES.map(lang => (
@@ -173,11 +181,11 @@ export function ListingForm() {
 
         {/* Product Section */}
         <section className="bg-[#141414] border border-[#262626] rounded-lg p-6 space-y-6">
-          <h2 className="text-xl font-bold text-[#ededed]">🏷️ Product Details</h2>
+          <h2 className="text-xl font-bold text-[#ededed]">{t('form.productDetails')}</h2>
 
           {/* Product Name */}
           <MaterialInput
-            label="Product Name"
+            label={t('form.productName')}
             required
             {...register('productName')}
             error={errors.productName?.message}
@@ -187,23 +195,19 @@ export function ListingForm() {
           <div className="grid md:grid-cols-3 gap-4">
             <MaterialInput
               type="number"
-              label="Price"
+              label={t('form.price')}
               required
               {...register('price', { valueAsNumber: true })}
               error={errors.price?.message}
             />
 
             <MaterialSelect
-              label="Currency"
+              label={t('form.currency')}
               required
               {...register('currency')}
               error={errors.currency?.message}
             >
-              {CURRENCIES.map(curr => (
-                <option key={curr.code} value={curr.code}>
-                  {curr.code} ({curr.symbol})
-                </option>
-              ))}
+              <option value="EUR">EUR (€)</option>
             </MaterialSelect>
 
             <div className="flex items-center">
@@ -213,7 +217,7 @@ export function ListingForm() {
                   {...register('negotiable')}
                   className="w-4 h-4 text-[#39b54a] bg-[#0a0a0a] border-[#262626] rounded focus:ring-[#39b54a]"
                 />
-                <span className="text-sm text-[#ededed]">Price negotiable</span>
+                <span className="text-sm text-[#ededed]">{t('form.negotiable')}</span>
               </label>
             </div>
           </div>
@@ -221,19 +225,19 @@ export function ListingForm() {
           {/* Year */}
           <MaterialInput
             type="number"
-            label="Year of Production (optional)"
+            label={t('form.year')}
             {...register('year', { valueAsNumber: true })}
             error={errors.year?.message}
           />
 
           {/* Condition */}
           <MaterialSelect
-            label="Condition"
+            label={t('form.condition')}
             required
             {...register('condition')}
             error={errors.condition?.message}
           >
-            <option value="">Select condition</option>
+            <option value="">{t('form.condition.placeholder')}</option>
             {CONDITIONS.map(condition => (
               <option key={condition.value} value={condition.value}>
                 {'⭐'.repeat(condition.stars)} {condition.label}
@@ -244,11 +248,11 @@ export function ListingForm() {
 
         {/* Shipping Section */}
         <section className="bg-[#141414] border border-[#262626] rounded-lg p-6 space-y-6">
-          <h2 className="text-xl font-bold text-[#ededed]">📦 Shipping</h2>
+          <h2 className="text-xl font-bold text-[#ededed]">{t('form.shipping')}</h2>
 
           <div>
             <label className="block text-sm font-medium text-[#ededed] mb-2">
-              Shipping Options <span className="text-red-400">*</span>
+              {t('form.shippingOptions')} <span className="text-red-400">*</span>
             </label>
             <div className="space-y-2">
               {SHIPPING_OPTIONS.map(option => (
@@ -270,7 +274,7 @@ export function ListingForm() {
 
           {shippingOptions?.includes('dhl-europe') && (
             <MaterialInput
-              label="Estimated DHL Shipping Cost (optional)"
+              label={t('form.dhlShippingCost')}
               {...register('dhlShippingCost')}
               error={errors.dhlShippingCost?.message}
             />
@@ -279,29 +283,33 @@ export function ListingForm() {
 
         {/* Description Section */}
         <section className="bg-[#141414] border border-[#262626] rounded-lg p-6 space-y-6">
-          <h2 className="text-xl font-bold text-[#ededed]">📄 Description</h2>
+          <h2 className="text-xl font-bold text-[#ededed]">{t('form.description')}</h2>
 
           <MaterialTextarea
-            label="Detailed Description"
+            label={t('form.detailedDescription')}
             required
             {...register('description')}
-            rows={6}
+            rows={14}
             error={errors.description?.message}
-            helperText={`${watch('description')?.length || 0} / 2000 characters (minimum 50)`}
+            helperText={t('form.descriptionHelper', {
+              current: watch('description')?.length || 0,
+              max: 2000,
+              min: 50
+            })}
           />
 
           <MaterialTextarea
-            label="What's Included"
+            label={t('form.includedItems')}
             required
             {...register('includedItems')}
-            rows={4}
+            rows={10}
             error={errors.includedItems?.message}
           />
         </section>
 
         {/* Photos Section */}
         <section className="bg-[#141414] border border-[#262626] rounded-lg p-6 space-y-6">
-          <h2 className="text-xl font-bold text-[#ededed]">📸 Photos</h2>
+          <h2 className="text-xl font-bold text-[#ededed]">{t('form.photos')}</h2>
 
           <Controller
             name="photos"
@@ -316,25 +324,12 @@ export function ListingForm() {
           />
         </section>
 
-        {/* Contact Section */}
-        <section className="bg-[#141414] border border-[#262626] rounded-lg p-6 space-y-6">
-          <h2 className="text-xl font-bold text-[#ededed]">📞 Contact</h2>
-
-          <MaterialInput
-            label="Contact Information (optional)"
-            {...register('contact')}
-            error={errors.contact?.message}
-          />
-          <p className="text-xs text-[#a3a3a3] -mt-4">
-            Leave empty to be contacted via Facebook Messenger
-          </p>
-        </section>
-
         {/* Translation Section */}
         <TranslationSection
           description={watch('description') || ''}
           includedItems={watch('includedItems') || ''}
           selectedLanguages={watch('languages') || []}
+          onTranslationsChange={setTranslations}
         />
 
         {/* Submit Button */}
@@ -344,12 +339,12 @@ export function ListingForm() {
               <span className="font-medium">
                 {Object.keys(errors).length > 0 ? (
                   <span className="text-red-400">
-                    {Object.keys(errors).length} error(s) - {Object.keys(errors).join(', ')}
+                    {t('form.errors', { count: Object.keys(errors).length })} - {Object.keys(errors).join(', ')}
                   </span>
                 ) : isValid ? (
-                  <span className="text-[#39b54a]">✓ All required fields completed</span>
+                  <span className="text-[#39b54a]">✓ {t('form.allFieldsComplete')}</span>
                 ) : (
-                  'Fill all required fields'
+                  t('form.fillRequired')
                 )}
               </span>
             </div>
@@ -358,7 +353,7 @@ export function ListingForm() {
               disabled={!isValid}
               className="px-6 py-3 bg-[#39b54a] text-white font-semibold rounded-lg hover:bg-[#39b54a]/90 disabled:bg-[#262626] disabled:text-[#a3a3a3] disabled:cursor-not-allowed transition-colors shadow-lg shadow-[#39b54a]/20"
             >
-              Preview Post
+              {t('form.previewPost')}
             </button>
           </div>
         </div>
@@ -366,8 +361,8 @@ export function ListingForm() {
         </div>
 
         {/* Right Column - Live Preview */}
-        <div className="hidden md:block md:w-[600px] flex-shrink-0">
-          <LivePreview data={watch()} />
+        <div className="hidden md:block md:w-[700px] flex-shrink-0">
+          <LivePreview data={watch()} translations={translations} />
         </div>
       </div>
 

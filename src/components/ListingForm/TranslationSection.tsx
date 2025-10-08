@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { translateText, detectSourceLanguage, type TranslationResult } from '../../services/translation';
 import { LANGUAGES } from '../../constants/listing';
 
@@ -6,15 +6,41 @@ interface TranslationSectionProps {
   description: string;
   includedItems: string;
   selectedLanguages: string[];
+  onTranslationsChange?: (translations: {
+    description: TranslationResult[];
+    includedItems: TranslationResult[];
+  } | null) => void;
 }
 
-export function TranslationSection({ description, includedItems, selectedLanguages }: TranslationSectionProps) {
+export function TranslationSection({ description, includedItems, selectedLanguages, onTranslationsChange }: TranslationSectionProps) {
   const [isTranslating, setIsTranslating] = useState(false);
   const [translations, setTranslations] = useState<{
     description: TranslationResult[];
     includedItems: TranslationResult[];
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // Track the original text that was translated
+  const lastTranslatedRef = useRef<{ description: string; includedItems: string } | null>(null);
+
+  // Invalidate translations when text changes
+  useEffect(() => {
+    if (lastTranslatedRef.current) {
+      if (
+        lastTranslatedRef.current.description !== description ||
+        lastTranslatedRef.current.includedItems !== includedItems
+      ) {
+        setTranslations(null);
+        lastTranslatedRef.current = null;
+        onTranslationsChange?.(null);
+      }
+    }
+  }, [description, includedItems, onTranslationsChange]);
+
+  // Notify parent when translations change
+  useEffect(() => {
+    onTranslationsChange?.(translations);
+  }, [translations, onTranslationsChange]);
 
   const handleTranslate = async () => {
     console.log('handleTranslate called', { description, includedItems, selectedLanguages });
@@ -38,10 +64,13 @@ export function TranslationSection({ description, includedItems, selectedLanguag
 
       console.log('Translations received:', { descTranslations, includedTranslations });
 
-      setTranslations({
+      const newTranslations = {
         description: descTranslations,
         includedItems: includedTranslations,
-      });
+      };
+
+      setTranslations(newTranslations);
+      lastTranslatedRef.current = { description, includedItems };
     } catch (err) {
       setError('Translation failed. Please try again.');
       console.error('Translation error:', err);

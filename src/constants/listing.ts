@@ -43,12 +43,48 @@ export const CURRENCIES: Currency[] = [
 ];
 
 export const CONDITIONS: ConditionOption[] = [
-  { value: 'new', label: 'New (unused, in original packaging)', stars: 5 },
-  { value: 'like-new', label: 'Like New (barely used, perfect condition)', stars: 5 },
-  { value: 'very-good', label: 'Very Good (light use, excellent condition)', stars: 4 },
-  { value: 'good', label: 'Good (regular use, good condition, minor wear)', stars: 3 },
-  { value: 'fair', label: 'Fair (visible wear, fully functional)', stars: 2 },
-  { value: 'parts', label: 'For Parts (not working, parts only)', stars: 1 },
+  {
+    value: 'new',
+    label: 'New (unused, in original packaging)',
+    labelDe: 'Neu (unbenutzt, in Originalverpackung)',
+    labelPl: 'Nowy (nieużywany, w oryginalnym opakowaniu)',
+    stars: 5
+  },
+  {
+    value: 'like-new',
+    label: 'Like New (barely used, perfect condition)',
+    labelDe: 'Wie neu (kaum benutzt, perfekter Zustand)',
+    labelPl: 'Jak nowy (prawie nieużywany, idealny stan)',
+    stars: 5
+  },
+  {
+    value: 'very-good',
+    label: 'Very Good (light use, excellent condition)',
+    labelDe: 'Sehr gut (wenig benutzt, ausgezeichneter Zustand)',
+    labelPl: 'Bardzo dobry (lekko używany, doskonały stan)',
+    stars: 4
+  },
+  {
+    value: 'good',
+    label: 'Good (regular use, good condition, minor wear)',
+    labelDe: 'Gut (regelmäßig benutzt, guter Zustand, leichte Gebrauchsspuren)',
+    labelPl: 'Dobry (regularnie używany, dobry stan, niewielkie ślady użytkowania)',
+    stars: 3
+  },
+  {
+    value: 'fair',
+    label: 'Fair (visible wear, fully functional)',
+    labelDe: 'Akzeptabel (sichtbare Gebrauchsspuren, voll funktionsfähig)',
+    labelPl: 'Zadowalający (widoczne ślady użytkowania, w pełni sprawny)',
+    stars: 2
+  },
+  {
+    value: 'parts',
+    label: 'For Parts (not working, parts only)',
+    labelDe: 'Für Ersatzteile (nicht funktionsfähig, nur Teile)',
+    labelPl: 'Na części (niesprawny, tylko części)',
+    stars: 1
+  },
 ];
 
 export const SHIPPING_OPTIONS: ShippingOption[] = [

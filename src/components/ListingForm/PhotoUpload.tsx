@@ -116,9 +116,9 @@ export function PhotoUpload({ photos, onChange, error }: PhotoUploadProps) {
         </div>
       )}
 
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-gray-700">
-        <p className="font-medium mb-2">📸 Photo Tips:</p>
-        <ul className="list-disc list-inside space-y-1 text-gray-600">
+      <div className="bg-[#39b54a]/10 border border-[#39b54a]/20 rounded-lg p-4 text-sm">
+        <p className="font-medium mb-2 text-[#ededed]">📸 Photo Tips:</p>
+        <ul className="list-disc list-inside space-y-1 text-[#a3a3a3]">
           <li>Take photos in good lighting (natural daylight is best)</li>
           <li>Show the tool from different angles</li>
           <li>Include close-ups of any wear or damage</li>
