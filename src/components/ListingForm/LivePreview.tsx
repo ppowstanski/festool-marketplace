@@ -82,20 +82,20 @@ export function LivePreview({ data, translations, onCopySuccess, isMobileModal =
         ) : (
           <>
             {/* Content - scrollable */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 space-y-4">
               {/* Title */}
-              <div>
+              <div className="min-w-0">
                 <h3 className="text-sm font-medium text-[#ededed] mb-2">{t('preview.postTitle')}</h3>
-                <div className="bg-[#141414] rounded-lg p-4 border border-[#262626] overflow-hidden">
-                  <p className="font-semibold text-[#ededed] break-all" style={{ overflowWrap: 'anywhere' }}>{post.title}</p>
+                <div className="bg-[#141414] rounded-lg p-4 border border-[#262626] overflow-hidden min-w-0">
+                  <p className="font-semibold text-[#ededed] break-all min-w-0" style={{ overflowWrap: 'anywhere', wordBreak: 'break-word' }}>{post.title}</p>
                 </div>
               </div>
 
               {/* Body */}
-              <div>
+              <div className="min-w-0">
                 <h3 className="text-sm font-medium text-[#ededed] mb-2">{t('preview.postBody')}</h3>
-                <div className="bg-[#141414] rounded-lg p-4 border border-[#262626] overflow-hidden">
-                  <pre className="whitespace-pre-wrap break-all font-sans text-[#ededed] text-sm leading-relaxed" style={{ overflowWrap: 'anywhere' }}>{post.body}</pre>
+                <div className="bg-[#141414] rounded-lg p-4 border border-[#262626] overflow-hidden min-w-0">
+                  <pre className="whitespace-pre-wrap break-all font-sans text-[#ededed] text-sm leading-relaxed min-w-0" style={{ overflowWrap: 'anywhere', wordBreak: 'break-word' }}>{post.body}</pre>
                 </div>
               </div>
             </div>
@@ -134,7 +134,7 @@ export function LivePreview({ data, translations, onCopySuccess, isMobileModal =
 
   // Desktop version - full height with sticky header/footer
   return (
-    <div className="h-[calc(100vh-6rem)] bg-[#0a0a0a] border border-[#262626] rounded-lg overflow-hidden flex flex-col">
+    <div className="h-[calc(100vh-6rem)] bg-[#0a0a0a] border border-[#262626] rounded-lg overflow-hidden flex flex-col w-full">
       {/* Header - sticky to top */}
       <div className="px-4 py-4 border-b border-[#262626] flex items-center justify-between bg-[#0a0a0a]">
         <h2 className="text-2xl font-bold text-[#ededed]">{t('preview.title')}</h2>
@@ -153,20 +153,20 @@ export function LivePreview({ data, translations, onCopySuccess, isMobileModal =
       ) : (
         <>
           {/* Content - scrollable */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-6">
+          <div className="flex-1 overflow-y-auto overflow-x-hidden p-6 space-y-6">
             {/* Title */}
-            <div>
+            <div className="min-w-0">
               <h3 className="text-sm font-medium text-[#ededed] mb-2">{t('preview.postTitle')}</h3>
-              <div className="bg-[#141414] rounded-lg p-4 border border-[#262626] overflow-hidden">
-                <p className="font-semibold text-[#ededed] break-all" style={{ overflowWrap: 'anywhere' }}>{post.title}</p>
+              <div className="bg-[#141414] rounded-lg p-4 border border-[#262626] overflow-hidden min-w-0">
+                <p className="font-semibold text-[#ededed] break-all min-w-0" style={{ overflowWrap: 'anywhere', wordBreak: 'break-word' }}>{post.title}</p>
               </div>
             </div>
 
             {/* Body */}
-            <div>
+            <div className="min-w-0">
               <h3 className="text-sm font-medium text-[#ededed] mb-2">{t('preview.postBody')}</h3>
-              <div className="bg-[#141414] rounded-lg p-4 border border-[#262626] overflow-hidden">
-                <pre className="whitespace-pre-wrap break-all font-sans text-[#ededed] text-sm leading-relaxed" style={{ overflowWrap: 'anywhere' }}>{post.body}</pre>
+              <div className="bg-[#141414] rounded-lg p-4 border border-[#262626] overflow-hidden min-w-0">
+                <pre className="whitespace-pre-wrap break-all font-sans text-[#ededed] text-sm leading-relaxed min-w-0" style={{ overflowWrap: 'anywhere', wordBreak: 'break-word' }}>{post.body}</pre>
               </div>
             </div>
           </div>
