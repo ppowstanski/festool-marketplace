@@ -4,6 +4,7 @@ import { useFacebookAuth } from './hooks/useFacebookAuth';
 import { LoginPage } from './pages/LoginPage';
 import { AppPage } from './pages/AppPage';
 import { PrivacyPage } from './pages/PrivacyPage';
+import DataDeletion from './pages/DataDeletion';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
 function AppRoutes() {
@@ -54,6 +55,7 @@ function AppRoutes() {
         }
       />
       <Route path="/privacy" element={<PrivacyPage />} />
+      <Route path="/data-deletion" element={<DataDeletion />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
