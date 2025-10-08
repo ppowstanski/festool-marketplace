@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import type { ListingFormData } from '../../types/listing';
 import { COUNTRIES, LANGUAGES, CURRENCIES, CONDITIONS } from '../../constants/listing';
 import { useTranslation } from '../../hooks/useTranslation';
 import { useUserSettings } from '../../hooks/useUserSettings';
+import { generatePost } from '../../utils/postGenerator';
 import type { TranslationResult } from '../../services/translation';
 
 interface LivePreviewProps {
@@ -10,11 +12,45 @@ interface LivePreviewProps {
     description: TranslationResult[];
     includedItems: TranslationResult[];
   } | null;
+  onCopySuccess?: () => void;
 }
 
-export function LivePreview({ data, translations }: LivePreviewProps) {
+export function LivePreview({ data, translations, onCopySuccess }: LivePreviewProps) {
   const { t } = useTranslation();
   const { settings } = useUserSettings();
+  const [copied, setCopied] = useState(false);
+
+  const isFormValid = (): boolean => {
+    return !!(
+      data.country &&
+      data.city &&
+      data.languages && data.languages.length > 0 &&
+      data.productName &&
+      data.price &&
+      data.currency &&
+      data.shippingOptions && data.shippingOptions.length > 0 &&
+      data.condition &&
+      data.description &&
+      data.includedItems
+    );
+  };
+
+  const copyToClipboard = async () => {
+    if (!isFormValid()) return;
+
+    try {
+      const post = generatePost(data as ListingFormData);
+      await navigator.clipboard.writeText(`${post.title}\n\n${post.body}`);
+      setCopied(true);
+      if (onCopySuccess) {
+        onCopySuccess();
+      }
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
+
   const getCountryName = (code: string) => COUNTRIES.find(c => c.code === code)?.name || code;
   const getLanguageName = (code: string) => LANGUAGES.find(l => l.code === code)?.name || code;
   const getCurrencySymbol = (code: string) => CURRENCIES.find(c => c.code === code)?.symbol || code;
@@ -312,6 +348,34 @@ export function LivePreview({ data, translations }: LivePreviewProps) {
         <p className="text-sm text-[#ededed]">{formatLanguages()}</p>
       </div>
 
+      {/* Copy to Clipboard Button */}
+      {isFormValid() && (
+        <div className="sticky bottom-0 bg-[#0a0a0a] pt-4 border-t border-[#262626]">
+          <button
+            onClick={copyToClipboard}
+            className="w-full px-6 py-4 bg-[#39b54a] text-white font-semibold rounded-lg hover:bg-[#39b54a]/90 transition-colors flex items-center justify-center gap-3 shadow-lg"
+          >
+            {copied ? (
+              <>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                Copied!
+              </>
+            ) : (
+              <>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                </svg>
+                Copy to Clipboard
+              </>
+            )}
+          </button>
+          <p className="text-xs text-center text-[#a3a3a3] mt-3">
+            Click to copy, then paste into your Facebook group
+          </p>
+        </div>
+      )}
     </div>
   );
 }

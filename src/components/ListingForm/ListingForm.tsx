@@ -3,10 +3,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { listingSchema, type ListingSchema } from '../../schemas/listingSchema';
 import { COUNTRIES, LANGUAGES, CONDITIONS, SHIPPING_OPTIONS, COUNTRY_CURRENCY_MAP } from '../../constants/listing';
-import { PreviewModal } from './PreviewModal';
 import { TranslationSection } from './TranslationSection';
 import { LivePreview } from './LivePreview';
-import type { ListingFormData } from '../../types/listing';
 import { useDraftAutoSave } from '../../hooks/useDraftAutoSave';
 import { MaterialInput } from './MaterialInput';
 import { MaterialSelect } from './MaterialSelect';
@@ -16,7 +14,6 @@ import type { TranslationResult } from '../../services/translation';
 
 export function ListingForm() {
   const { t } = useTranslation();
-  const [showPreview, setShowPreview] = useState(false);
   const [translations, setTranslations] = useState<{
     description: TranslationResult[];
     includedItems: TranslationResult[];
@@ -24,11 +21,10 @@ export function ListingForm() {
 
   const {
     register,
-    handleSubmit,
     watch,
     setValue,
     reset,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<ListingSchema>({
     resolver: zodResolver(listingSchema),
     mode: 'onChange',
@@ -59,10 +55,6 @@ export function ListingForm() {
     }
   };
 
-  const onSubmit = () => {
-    setShowPreview(true);
-  };
-
   const formatDraftTime = (timestamp: number | null): string => {
     if (!timestamp) return '';
     const date = new Date(timestamp);
@@ -89,7 +81,7 @@ export function ListingForm() {
       <div className="flex flex-col md:flex-row gap-8">
         {/* Left Column - Form */}
         <div className="flex-1">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+          <div className="space-y-8">
         {/* Draft Indicator */}
         {isDraftSaved && draftTimestamp && (
           <div className="bg-[#39b54a]/10 border border-[#39b54a]/20 rounded-lg p-4 flex items-center justify-between">
@@ -312,47 +304,18 @@ export function ListingForm() {
           onTranslationsChange={setTranslations}
         />
 
-        {/* Submit Button */}
-        <div className="sticky bottom-4 bg-[#141414] rounded-lg shadow-lg shadow-[#39b54a]/10 p-4 border border-[#262626]">
-          <div className="flex items-center justify-between">
-            <div className="text-sm text-[#a3a3a3]">
-              <span className="font-medium">
-                {Object.keys(errors).length > 0 ? (
-                  <span className="text-red-400">
-                    {t('form.errors', { count: Object.keys(errors).length })} - {Object.keys(errors).join(', ')}
-                  </span>
-                ) : isValid ? (
-                  <span className="text-[#39b54a]">✓ {t('form.allFieldsComplete')}</span>
-                ) : (
-                  t('form.fillRequired')
-                )}
-              </span>
-            </div>
-            <button
-              type="submit"
-              disabled={!isValid}
-              className="px-6 py-3 bg-[#39b54a] text-white font-semibold rounded-lg hover:bg-[#39b54a]/90 disabled:bg-[#262626] disabled:text-[#a3a3a3] disabled:cursor-not-allowed transition-colors shadow-lg shadow-[#39b54a]/20"
-            >
-              {t('form.previewPost')}
-            </button>
           </div>
         </div>
-          </form>
-        </div>
 
-        {/* Right Column - Live Preview */}
+        {/* Right Column - Live Preview with Copy Button */}
         <div className="hidden md:block md:w-[700px] flex-shrink-0">
-          <LivePreview data={watch()} translations={translations} />
+          <LivePreview
+            data={watch()}
+            translations={translations}
+            onCopySuccess={clearDraft}
+          />
         </div>
       </div>
-
-      {showPreview && (
-        <PreviewModal
-          data={watch() as ListingFormData}
-          onClose={() => setShowPreview(false)}
-          onPostSuccess={clearDraft}
-        />
-      )}
     </>
   );
 }
