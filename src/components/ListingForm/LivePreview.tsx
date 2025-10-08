@@ -86,16 +86,16 @@ export function LivePreview({ data, translations, onCopySuccess, isMobileModal =
               {/* Title */}
               <div>
                 <h3 className="text-sm font-medium text-[#ededed] mb-2">{t('preview.postTitle')}</h3>
-                <div className="bg-[#141414] rounded-lg p-4 border border-[#262626]">
-                  <p className="font-semibold text-[#ededed] break-words">{post.title}</p>
+                <div className="bg-[#141414] rounded-lg p-4 border border-[#262626] overflow-hidden">
+                  <p className="font-semibold text-[#ededed] break-all" style={{ overflowWrap: 'anywhere' }}>{post.title}</p>
                 </div>
               </div>
 
               {/* Body */}
               <div>
                 <h3 className="text-sm font-medium text-[#ededed] mb-2">{t('preview.postBody')}</h3>
-                <div className="bg-[#141414] rounded-lg p-4 border border-[#262626]">
-                  <pre className="whitespace-pre-wrap break-words font-sans text-[#ededed] text-sm leading-relaxed">{post.body}</pre>
+                <div className="bg-[#141414] rounded-lg p-4 border border-[#262626] overflow-hidden">
+                  <pre className="whitespace-pre-wrap break-all font-sans text-[#ededed] text-sm leading-relaxed" style={{ overflowWrap: 'anywhere' }}>{post.body}</pre>
                 </div>
               </div>
             </div>
@@ -157,16 +157,16 @@ export function LivePreview({ data, translations, onCopySuccess, isMobileModal =
             {/* Title */}
             <div>
               <h3 className="text-sm font-medium text-[#ededed] mb-2">{t('preview.postTitle')}</h3>
-              <div className="bg-[#141414] rounded-lg p-4 border border-[#262626]">
-                <p className="font-semibold text-[#ededed] break-words">{post.title}</p>
+              <div className="bg-[#141414] rounded-lg p-4 border border-[#262626] overflow-hidden">
+                <p className="font-semibold text-[#ededed] break-all" style={{ overflowWrap: 'anywhere' }}>{post.title}</p>
               </div>
             </div>
 
             {/* Body */}
             <div>
               <h3 className="text-sm font-medium text-[#ededed] mb-2">{t('preview.postBody')}</h3>
-              <div className="bg-[#141414] rounded-lg p-4 border border-[#262626]">
-                <pre className="whitespace-pre-wrap break-words font-sans text-[#ededed] text-sm leading-relaxed">{post.body}</pre>
+              <div className="bg-[#141414] rounded-lg p-4 border border-[#262626] overflow-hidden">
+                <pre className="whitespace-pre-wrap break-all font-sans text-[#ededed] text-sm leading-relaxed" style={{ overflowWrap: 'anywhere' }}>{post.body}</pre>
               </div>
             </div>
           </div>
