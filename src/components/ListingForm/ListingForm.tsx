@@ -81,7 +81,7 @@ export function ListingForm() {
     <>
       <div className="flex flex-col md:flex-row gap-8 relative">
         {/* Left Column - Form */}
-        <div className="flex-1 md:mr-[716px]">
+        <div className="flex-1 md:mr-[716px] md:max-w-[calc(100%-716px)]">
           {/* Page Title */}
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-[#ededed] mb-2">
