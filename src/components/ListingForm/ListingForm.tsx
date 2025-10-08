@@ -331,7 +331,7 @@ export function ListingForm() {
         </div>
 
         {/* Right Column - Desktop Live Preview */}
-        <div className="hidden md:block md:w-[700px] flex-shrink-0">
+        <div className="hidden md:block md:w-[700px] flex-shrink-0 sticky top-4 self-start">
           <LivePreview
             data={watch()}
             translations={translations}
