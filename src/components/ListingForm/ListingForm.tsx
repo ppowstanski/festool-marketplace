@@ -79,9 +79,9 @@ export function ListingForm() {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row gap-8">
+      <div className="flex flex-col md:flex-row gap-8 relative">
         {/* Left Column - Form */}
-        <div className="flex-1">
+        <div className="flex-1 md:mr-[700px]">
           {/* Page Title */}
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-[#ededed] mb-2">
@@ -331,7 +331,7 @@ export function ListingForm() {
         </div>
 
         {/* Right Column - Desktop Live Preview */}
-        <div className="hidden md:block md:w-[700px] flex-shrink-0 sticky top-4 self-start">
+        <div className="hidden md:block md:w-[700px] fixed right-4 top-[5rem]">
           <LivePreview
             data={watch()}
             translations={translations}
