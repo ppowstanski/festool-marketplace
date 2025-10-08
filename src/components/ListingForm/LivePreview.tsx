@@ -87,7 +87,7 @@ export function LivePreview({ data, translations, onCopySuccess, isMobileModal =
               <div>
                 <h3 className="text-sm font-medium text-[#ededed] mb-2">{t('preview.postTitle')}</h3>
                 <div className="bg-[#141414] rounded-lg p-4 border border-[#262626]">
-                  <p className="font-semibold text-[#ededed]">{post.title}</p>
+                  <p className="font-semibold text-[#ededed] break-words">{post.title}</p>
                 </div>
               </div>
 
@@ -95,7 +95,7 @@ export function LivePreview({ data, translations, onCopySuccess, isMobileModal =
               <div>
                 <h3 className="text-sm font-medium text-[#ededed] mb-2">{t('preview.postBody')}</h3>
                 <div className="bg-[#141414] rounded-lg p-4 border border-[#262626]">
-                  <pre className="whitespace-pre-wrap font-sans text-[#ededed] text-sm leading-relaxed">{post.body}</pre>
+                  <pre className="whitespace-pre-wrap break-words font-sans text-[#ededed] text-sm leading-relaxed">{post.body}</pre>
                 </div>
               </div>
             </div>
@@ -158,7 +158,7 @@ export function LivePreview({ data, translations, onCopySuccess, isMobileModal =
             <div>
               <h3 className="text-sm font-medium text-[#ededed] mb-2">{t('preview.postTitle')}</h3>
               <div className="bg-[#141414] rounded-lg p-4 border border-[#262626]">
-                <p className="font-semibold text-[#ededed]">{post.title}</p>
+                <p className="font-semibold text-[#ededed] break-words">{post.title}</p>
               </div>
             </div>
 
@@ -166,7 +166,7 @@ export function LivePreview({ data, translations, onCopySuccess, isMobileModal =
             <div>
               <h3 className="text-sm font-medium text-[#ededed] mb-2">{t('preview.postBody')}</h3>
               <div className="bg-[#141414] rounded-lg p-4 border border-[#262626]">
-                <pre className="whitespace-pre-wrap font-sans text-[#ededed] text-sm leading-relaxed">{post.body}</pre>
+                <pre className="whitespace-pre-wrap break-words font-sans text-[#ededed] text-sm leading-relaxed">{post.body}</pre>
               </div>
             </div>
           </div>
