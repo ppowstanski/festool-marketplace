@@ -121,7 +121,14 @@ export const translations = {
     'time.daysAgo': '{count} day(s) ago',
 
     // Preview
-    'preview.title': 'Live Preview',
+    'preview.title': 'Post Preview',
+    'preview.subtitle': 'This is how your post will look',
+    'preview.emptyState': 'Fill out the form to see your post preview',
+    'preview.postTitle': 'Post Title',
+    'preview.postBody': 'Post Body',
+    'preview.copyButton': 'Copy to Clipboard',
+    'preview.copied': 'Copied!',
+    'preview.instruction': 'Copy → Facebook group → Paste → Add photos → Post',
     'preview.productName': 'Product Name',
     'preview.city': 'City',
     'preview.country': 'Country',
@@ -135,6 +142,7 @@ export const translations = {
     'preview.languages': 'Languages',
     'preview.contact': 'Contact',
     'preview.negotiable': 'negotiable',
+    'preview.mobileButton': 'Preview',
   },
 
   de: {
@@ -259,7 +267,14 @@ export const translations = {
     'time.daysAgo': 'vor {count} Tag(en)',
 
     // Preview
-    'preview.title': 'Live-Vorschau',
+    'preview.title': 'Beitragsvorschau',
+    'preview.subtitle': 'So wird Ihr Beitrag aussehen',
+    'preview.emptyState': 'Füllen Sie das Formular aus, um die Vorschau zu sehen',
+    'preview.postTitle': 'Beitragstitel',
+    'preview.postBody': 'Beitragstext',
+    'preview.copyButton': 'In Zwischenablage kopieren',
+    'preview.copied': 'Kopiert!',
+    'preview.instruction': 'Kopieren → Facebook-Gruppe → Einfügen → Fotos hinzufügen → Posten',
     'preview.productName': 'Produktname',
     'preview.city': 'Stadt',
     'preview.country': 'Land',
@@ -273,6 +288,7 @@ export const translations = {
     'preview.languages': 'Sprachen',
     'preview.contact': 'Kontakt',
     'preview.negotiable': 'verhandelbar',
+    'preview.mobileButton': 'Vorschau',
   },
 
   pl: {
@@ -397,7 +413,14 @@ export const translations = {
     'time.daysAgo': '{count} dni temu',
 
     // Preview
-    'preview.title': 'Podgląd na żywo',
+    'preview.title': 'Podgląd wpisu',
+    'preview.subtitle': 'Tak będzie wyglądał Twój wpis',
+    'preview.emptyState': 'Wypełnij formularz, aby zobaczyć podgląd',
+    'preview.postTitle': 'Tytuł wpisu',
+    'preview.postBody': 'Treść wpisu',
+    'preview.copyButton': 'Kopiuj do schowka',
+    'preview.copied': 'Skopiowano!',
+    'preview.instruction': 'Kopiuj → Grupa Facebook → Wklej → Dodaj zdjęcia → Opublikuj',
     'preview.productName': 'Nazwa produktu',
     'preview.city': 'Miasto',
     'preview.country': 'Kraj',
@@ -411,6 +434,7 @@ export const translations = {
     'preview.languages': 'Języki',
     'preview.contact': 'Kontakt',
     'preview.negotiable': 'do negocjacji',
+    'preview.mobileButton': 'Podgląd',
   },
 } as const;
 
