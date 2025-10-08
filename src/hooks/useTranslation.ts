@@ -6,7 +6,8 @@ export function useTranslation() {
   const currentLanguage = settings.language || 'en';
 
   const t = (key: TranslationKey, params?: Record<string, string | number>): string => {
-    let translation = translations[currentLanguage][key] || translations.en[key] || key;
+    const langTranslations = translations[currentLanguage];
+    let translation: string = (langTranslations?.[key] || translations.en[key] || key) as string;
 
     // Replace parameters like {count}, {time}, etc.
     if (params) {

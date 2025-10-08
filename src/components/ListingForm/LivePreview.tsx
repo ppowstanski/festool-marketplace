@@ -18,8 +18,7 @@ export function LivePreview({ data, translations }: LivePreviewProps) {
   const getCountryName = (code: string) => COUNTRIES.find(c => c.code === code)?.name || code;
   const getLanguageName = (code: string) => LANGUAGES.find(l => l.code === code)?.name || code;
   const getCurrencySymbol = (code: string) => CURRENCIES.find(c => c.code === code)?.symbol || code;
-  const getConditionLabel = (value: string) => CONDITIONS.find(c => c.value === value)?.label || value;
-  const getConditionLabelMultiLang = (value: string): JSX.Element => {
+  const getConditionLabelMultiLang = (value: string): React.ReactElement => {
     const condition = CONDITIONS.find(c => c.value === value);
     if (!condition) return <>{value}</>;
     return (
@@ -70,7 +69,7 @@ export function LivePreview({ data, translations }: LivePreviewProps) {
   };
 
   // Get other language translations (excluding user's language)
-  const getOtherLangLabels = (key: string): JSX.Element => {
+  const getOtherLangLabels = (key: string): React.ReactElement => {
     const translations: Record<string, Record<string, string>> = {
       'en': {
         'price': 'Price',

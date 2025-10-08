@@ -86,52 +86,7 @@ export async function translateText(
   return results;
 }
 
-// Helper function to split text into chunks at sentence boundaries
-function splitTextIntoChunks(text: string, maxLength: number): string[] {
-  if (text.length <= maxLength) {
-    return [text];
-  }
-
-  const chunks: string[] = [];
-  const sentences = text.split(/([.!?]\s+)/); // Split but keep delimiters
-  let currentChunk = '';
-
-  for (let i = 0; i < sentences.length; i++) {
-    const sentence = sentences[i];
-
-    if ((currentChunk + sentence).length <= maxLength) {
-      currentChunk += sentence;
-    } else {
-      if (currentChunk) {
-        chunks.push(currentChunk.trim());
-        currentChunk = sentence;
-      } else {
-        // If a single sentence is longer than maxLength, split it forcefully
-        const words = sentence.split(' ');
-        let wordChunk = '';
-
-        for (const word of words) {
-          if ((wordChunk + ' ' + word).length <= maxLength) {
-            wordChunk += (wordChunk ? ' ' : '') + word;
-          } else {
-            if (wordChunk) chunks.push(wordChunk.trim());
-            wordChunk = word;
-          }
-        }
-
-        if (wordChunk) currentChunk = wordChunk;
-      }
-    }
-  }
-
-  if (currentChunk) {
-    chunks.push(currentChunk.trim());
-  }
-
-  return chunks;
-}
-
-export function detectSourceLanguage(languages: string[]): string {
+export function detectSourceLanguage(_languages: string[]): string {
   // Simply use 'auto' for automatic language detection
   // Google Translate API supports 'auto' as source language
   return 'auto';

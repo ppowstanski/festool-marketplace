@@ -2,7 +2,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { listingSchema, type ListingSchema } from '../../schemas/listingSchema';
-import { COUNTRIES, LANGUAGES, CURRENCIES, CONDITIONS, SHIPPING_OPTIONS, COUNTRY_CURRENCY_MAP } from '../../constants/listing';
+import { COUNTRIES, LANGUAGES, CONDITIONS, SHIPPING_OPTIONS, COUNTRY_CURRENCY_MAP } from '../../constants/listing';
 import { PhotoUpload } from './PhotoUpload';
 import { PreviewModal } from './PreviewModal';
 import { TranslationSection } from './TranslationSection';
