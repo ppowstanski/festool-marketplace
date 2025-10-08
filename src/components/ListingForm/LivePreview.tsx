@@ -86,30 +86,30 @@ export function LivePreview({ data, translations, onCopySuccess }: LivePreviewPr
           </div>
 
           {/* Copy Button */}
-          <div className="p-6 border-t border-[#262626] bg-[#0a0a0a]">
+          <div className="p-4 border-t border-[#262626] bg-[#0a0a0a]">
             <button
               onClick={copyToClipboard}
-              className="w-full px-6 py-4 bg-[#39b54a] text-white font-semibold rounded-lg hover:bg-[#39b54a]/90 transition-colors flex items-center justify-center gap-3 shadow-lg"
+              className="w-full px-4 py-3 bg-[#39b54a] text-white font-semibold rounded-lg hover:bg-[#39b54a]/90 transition-colors flex items-center justify-center gap-2 shadow-lg"
             >
               {copied ? (
                 <>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   Copied!
                 </>
               ) : (
                 <>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
                   </svg>
                   Copy to Clipboard
                 </>
               )}
             </button>
-            <div className="mt-4 bg-[#141414] border border-[#262626] rounded-lg p-3">
-              <p className="text-xs text-[#a3a3a3] text-center">
-                📋 <strong>Next steps:</strong> Click to copy → Go to Facebook group → Paste → Add photos → Post
+            <div className="mt-2 bg-[#141414] border border-[#262626] rounded-lg p-2">
+              <p className="text-xs text-[#a3a3a3] text-center leading-tight">
+                📋 Click to copy → Go to Facebook group → Paste → Add photos → Post
               </p>
             </div>
           </div>
