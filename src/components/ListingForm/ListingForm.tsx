@@ -81,6 +81,16 @@ export function ListingForm() {
       <div className="flex flex-col md:flex-row gap-8">
         {/* Left Column - Form */}
         <div className="flex-1">
+          {/* Page Title */}
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-[#ededed] mb-2">
+              {t('dashboard.createListing')}
+            </h2>
+            <p className="text-[#a3a3a3]">
+              {t('dashboard.subtitle')}
+            </p>
+          </div>
+
           <div className="space-y-8">
         {/* Draft Indicator */}
         {isDraftSaved && draftTimestamp && (
