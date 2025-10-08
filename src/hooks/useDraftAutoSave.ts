@@ -98,7 +98,6 @@ export function useDraftAutoSave({
       condition: '',
       description: '',
       includedItems: '',
-      photos: [],
       contact: '',
     });
   };
