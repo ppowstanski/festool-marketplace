@@ -8,8 +8,8 @@ export function AppPage() {
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
       <Header />
-      <main className="px-6 py-4">
-        <div className="max-w-[1600px] mx-auto">
+      <main className="px-4 py-4">
+        <div className="max-w-full mx-auto">
           <ListingForm />
         </div>
       </main>
