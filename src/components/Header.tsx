@@ -10,7 +10,7 @@ export function Header() {
 
   return (
     <header className="bg-[#39b54a]/10 border-b border-[#39b54a]/20 sticky top-0 z-40 shadow-lg backdrop-blur-sm">
-      <div className="max-w-[1600px] mx-auto py-4">
+      <div className="max-w-full mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Left - Logo */}
           <div className="flex items-center gap-3">
