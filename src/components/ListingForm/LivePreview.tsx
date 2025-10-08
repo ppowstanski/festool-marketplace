@@ -86,10 +86,10 @@ export function LivePreview({ data, translations, onCopySuccess }: LivePreviewPr
           </div>
 
           {/* Copy Button */}
-          <div className="p-4 border-t border-[#262626] bg-[#0a0a0a]">
+          <div className="p-3 border-t border-[#262626] bg-[#0a0a0a] flex items-center gap-3">
             <button
               onClick={copyToClipboard}
-              className="w-full px-4 py-3 bg-[#39b54a] text-white font-semibold rounded-lg hover:bg-[#39b54a]/90 transition-colors flex items-center justify-center gap-2 shadow-lg"
+              className="px-4 py-2 bg-[#39b54a] text-white font-semibold rounded-lg hover:bg-[#39b54a]/90 transition-colors flex items-center gap-2 shadow-lg text-sm"
             >
               {copied ? (
                 <>
@@ -107,11 +107,9 @@ export function LivePreview({ data, translations, onCopySuccess }: LivePreviewPr
                 </>
               )}
             </button>
-            <div className="mt-2 bg-[#141414] border border-[#262626] rounded-lg p-2">
-              <p className="text-xs text-[#a3a3a3] text-center leading-tight">
-                📋 Click to copy → Go to Facebook group → Paste → Add photos → Post
-              </p>
-            </div>
+            <p className="text-[10px] text-[#a3a3a3] leading-tight flex-1">
+              Copy → Facebook group → Paste → Add photos → Post
+            </p>
           </div>
         </>
       )}
